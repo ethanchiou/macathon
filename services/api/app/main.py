@@ -13,6 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 
 from .routes.lessons import router as lessons_router
+from .routes.videos import router as videos_router
 
 
 @asynccontextmanager
@@ -44,6 +45,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(lessons_router, prefix="/api", tags=["lessons"])
+app.include_router(videos_router, prefix="/api", tags=["videos"])
 
 
 @app.get("/")
