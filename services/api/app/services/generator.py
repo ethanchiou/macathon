@@ -11,7 +11,7 @@ import google.generativeai as genai
 from ..models.lesson import LessonPlan, GenerateRequest
 
 
-# Evolution knowledge pack for demo quality
+# Evolution knowledge pack for demo quality, just our fall back example for proof of concept, and its what the prompt outputs if API credits fail(Works much better with custom prompt for specific topics/animal evolutions)
 EVOLUTION_KNOWLEDGE_PACK = {
     "key_concepts": [
         "natural selection",
@@ -42,7 +42,7 @@ EVOLUTION_KNOWLEDGE_PACK = {
     ]
 }
 
-
+#System prompt to gemini to create a lesson plan
 SYSTEM_PROMPT = """You are a biology curriculum developer. Generate lesson plans in JSON format.
 Requirements: grade-appropriate content, low-cost materials, include misconceptions.
 Return ONLY valid JSON, no markdown."""
