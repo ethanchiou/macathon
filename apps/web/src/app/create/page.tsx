@@ -85,7 +85,7 @@ export default function CreateLessonPage() {
     return (
         <div className="min-h-[calc(100vh-72px)] py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden text-gray-900">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-8">
                         <h1 className="text-3xl font-bold mb-2">Create New Lesson Plan</h1>
@@ -129,8 +129,8 @@ export default function CreateLessonPage() {
                                         type="button"
                                         onClick={() => setFormData({ ...formData, gradeBand: grade })}
                                         className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${formData.gradeBand === grade
-                                                ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                                : 'border-gray-200 hover:border-gray-300 text-gray-600'
+                                            ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-600'
                                             }`}
                                     >
                                         Grades {grade}
@@ -151,8 +151,8 @@ export default function CreateLessonPage() {
                                         type="button"
                                         onClick={() => setFormData({ ...formData, durationMinutes: duration })}
                                         className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${formData.durationMinutes === duration
-                                                ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                                : 'border-gray-200 hover:border-gray-300 text-gray-600'
+                                            ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-600'
                                             }`}
                                     >
                                         {duration} minutes
@@ -190,8 +190,8 @@ export default function CreateLessonPage() {
                             type="submit"
                             disabled={loading}
                             className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-all ${loading
-                                    ? 'bg-gray-400 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+                                ? 'bg-gray-400 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
                                 }`}
                         >
                             {loading ? (

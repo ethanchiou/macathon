@@ -40,7 +40,7 @@ macathon2026/
 - Node.js 18+
 - Python 3.10+
 - Firebase Project (with Auth + Firestore enabled)
-- OpenAI API Key (optional - uses fallback without it)
+- Google Gemini API Key (optional - uses fallback without it)
 
 ### 1️⃣ Firebase Setup
 
@@ -77,7 +77,7 @@ pip install -r requirements.txt
 
 # Copy and configure environment
 cp .env.example .env
-# Edit .env with your Firebase service account credentials and OpenAI key
+# Edit .env with your Firebase service account credentials and Gemini key
 
 # Run the server
 uvicorn app.main:app --reload --port 8000
@@ -116,7 +116,7 @@ FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxx@your-project.iam.gserviceaccount.com
 FIREBASE_CLIENT_ID=your-client-id
 
 # LLM API (optional - uses fallback without it)
-OPENAI_API_KEY=sk-...
+GEMINI_KEY=sk-...
 
 # CORS
 CORS_ORIGINS=http://localhost:3000

@@ -66,8 +66,8 @@ export function LessonViewer({ lessonPlan, onSave, saving }: LessonViewerProps) 
                                 <button
                                     onClick={() => setEditMode(!editMode)}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${editMode
-                                            ? 'bg-yellow-500 hover:bg-yellow-600'
-                                            : 'bg-white/20 hover:bg-white/30'
+                                        ? 'bg-yellow-500 hover:bg-yellow-600'
+                                        : 'bg-white/20 hover:bg-white/30'
                                         }`}
                                 >
                                     {editMode ? '✏️ Editing' : '✏️ Edit'}
@@ -97,7 +97,7 @@ export function LessonViewer({ lessonPlan, onSave, saving }: LessonViewerProps) 
                         type="text"
                         value={editedPlan.title}
                         onChange={(e) => updateField('title', e.target.value)}
-                        className="text-3xl font-bold bg-white/10 rounded px-2 py-1 w-full"
+                        className="text-3xl font-bold bg-white/10 rounded px-2 py-1 w-full text-white placeholder:text-white/50"
                     />
                 ) : (
                     <h1 className="text-3xl font-bold">{plan.title}</h1>
@@ -165,7 +165,7 @@ export function LessonViewer({ lessonPlan, onSave, saving }: LessonViewerProps) 
                                         onChange={(e) =>
                                             updateArrayItem('coreExplanation', i, e.target.value)
                                         }
-                                        className="w-full border rounded p-2 focus:border-purple-500 outline-none"
+                                        className="w-full border rounded p-2 focus:border-purple-500 outline-none text-gray-900 bg-white"
                                         rows={3}
                                     />
                                 ) : (

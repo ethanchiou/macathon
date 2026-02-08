@@ -1,12 +1,12 @@
 """
 Lesson Plan Generator Service
-Uses LLM to generate structured biology lesson plans
+Uses Google Gemini API to generate structured biology lesson plans
 """
 import json
 import os
 from typing import Optional
 
-from openai import OpenAI
+import google.generativeai as genai
 
 from ..models.lesson import LessonPlan, GenerateRequest
 
@@ -43,20 +43,9 @@ EVOLUTION_KNOWLEDGE_PACK = {
 }
 
 
-SYSTEM_PROMPT = """You are an expert biology curriculum developer creating lesson plans for teachers in low-resource regions. 
-
-Generate a complete, classroom-ready lesson plan in JSON format following the exact schema provided.
-
-Key requirements:
-1. All content must be grade-appropriate for the specified grade band
-2. Use vocabulary and examples relevant to the specified region
-3. Activities must use low-cost, easily available materials
-4. Include at least 2 common misconceptions with corrections
-5. Make local context examples specific to the region
-6. Fill every field - no empty arrays allowed
-7. Make content biology-focused and scientifically accurate
-
-Return ONLY valid JSON matching the schema, no markdown or explanation."""
+SYSTEM_PROMPT = """You are a biology curriculum developer. Generate lesson plans in JSON format.
+Requirements: grade-appropriate content, low-cost materials, include misconceptions.
+Return ONLY valid JSON, no markdown."""
 
 
 def get_generation_prompt(request: GenerateRequest) -> str:
@@ -216,37 +205,43 @@ def get_fallback_lesson_plan(request: GenerateRequest) -> LessonPlan:
 
 
 class LessonGenerator:
-    """Service for generating lesson plans using LLM."""
+    """Service for generating lesson plans using Google Gemini API."""
     
     def __init__(self):
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("GEMINI_KEY")
         if not api_key:
-            self.client = None
+            self.model = None
         else:
-            self.client = OpenAI(api_key=api_key)
+            genai.configure(api_key=api_key)
+            self.model = genai.GenerativeModel(
+                model_name="gemini-2.0-flash-lite",
+                system_instruction=SYSTEM_PROMPT
+            )
     
     async def generate(self, request: GenerateRequest) -> LessonPlan:
         """Generate a lesson plan from the request."""
         
-        if not self.client:
+        if not self.model:
             # No API key - return fallback
             return get_fallback_lesson_plan(request)
         
         try:
             prompt = get_generation_prompt(request)
             
-            response = self.client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.7,
-                max_tokens=4000,
-                response_format={"type": "json_object"}
+            # Use generation config for JSON output
+            generation_config = {
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "max_output_tokens": 2000,
+                "response_mime_type": "application/json",
+            }
+            
+            response = await self.model.generate_content_async(
+                prompt,
+                generation_config=generation_config
             )
             
-            content = response.choices[0].message.content
+            content = response.text
             lesson_data = json.loads(content)
             
             # Validate against schema
