@@ -10,12 +10,15 @@ export function Header() {
     const { user, loading, signInWithGoogle, signOut } = useAuth();
 
     return (
-        <header className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg">
+        <header className="bg-slate-900 border-b border-slate-700 text-white shadow-md">
             <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2">
-                        <span className="text-2xl">🌱</span>
-                        <span className="text-xl font-bold">BioLesson</span>
+                        <span className="text-2xl text-purple-400">⚡</span>
+                        <div className="flex flex-col leading-tight">
+                            <span className="text-xl font-bold tracking-tight">SynapseStream</span>
+                            <span className="text-[10px] uppercase tracking-widest opacity-60 font-semibold">AI Education</span>
+                        </div>
                     </Link>
 
                     <nav className="flex items-center gap-6">
@@ -23,21 +26,21 @@ export function Header() {
                             <>
                                 <Link
                                     href="/create"
-                                    className="hover:text-emerald-200 transition-colors font-medium"
+                                    className="hover:text-purple-400 transition-colors font-medium text-sm"
                                 >
-                                    Create Lesson
+                                    Lesson Plan
                                 </Link>
                                 <Link
                                     href="/create-video"
-                                    className="hover:text-emerald-200 transition-colors font-medium"
+                                    className="hover:text-purple-400 transition-colors font-medium text-sm"
                                 >
-                                    Create Video
+                                    Video Lesson
                                 </Link>
                                 <Link
                                     href="/library"
-                                    className="hover:text-emerald-200 transition-colors font-medium"
+                                    className="hover:text-purple-400 transition-colors font-medium text-sm"
                                 >
-                                    My Library
+                                    Library
                                 </Link>
                             </>
                         )}
@@ -59,7 +62,7 @@ export function Header() {
                         ) : (
                             <button
                                 onClick={signInWithGoogle}
-                                className="px-4 py-2 bg-white text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium flex items-center gap-2"
+                                className="px-4 py-2 bg-white text-slate-900 rounded-lg hover:bg-slate-50 transition-colors font-medium flex items-center gap-2 text-sm shadow-sm"
                             >
                                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                                     <path

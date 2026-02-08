@@ -48,7 +48,7 @@ export default function CreateLessonPage() {
     if (authLoading) {
         return (
             <div className="min-h-[calc(100vh-72px)] flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-slate-900"></div>
             </div>
         );
     }
@@ -67,7 +67,7 @@ export default function CreateLessonPage() {
                     </p>
                     <button
                         onClick={signInWithGoogle}
-                        className="w-full px-6 py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2"
+                        className="w-full px-6 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path
@@ -85,12 +85,12 @@ export default function CreateLessonPage() {
     return (
         <div className="min-h-[calc(100vh-72px)] py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden text-gray-900">
+                <div className="school-card overflow-hidden text-gray-900">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-8">
-                        <h1 className="text-3xl font-bold mb-2">Create New Lesson Plan</h1>
-                        <p className="text-emerald-100">
-                            Fill in the details below to generate a structured biology lesson plan
+                    <div className="bg-slate-900 text-white p-8 border-b border-slate-700">
+                        <h1 className="text-3xl font-bold mb-2 !text-white">Generate Lesson Plan</h1>
+                        <p className="text-slate-400">
+                            Fill in the details below to generate a structured STEM lesson plan
                         </p>
                     </div>
 
@@ -104,7 +104,7 @@ export default function CreateLessonPage() {
                             <select
                                 value={formData.region}
                                 onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900 transition-colors"
                             >
                                 {REGIONS.map((region) => (
                                     <option key={region} value={region}>
@@ -129,8 +129,8 @@ export default function CreateLessonPage() {
                                         type="button"
                                         onClick={() => setFormData({ ...formData, gradeBand: grade })}
                                         className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${formData.gradeBand === grade
-                                            ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                            : 'border-gray-200 hover:border-gray-300 text-gray-600'
+                                            ? 'border-slate-900 bg-slate-50 text-slate-900 shadow-sm'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-600 bg-white'
                                             }`}
                                     >
                                         Grades {grade}
@@ -151,8 +151,8 @@ export default function CreateLessonPage() {
                                         type="button"
                                         onClick={() => setFormData({ ...formData, durationMinutes: duration })}
                                         className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${formData.durationMinutes === duration
-                                            ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                            : 'border-gray-200 hover:border-gray-300 text-gray-600'
+                                            ? 'border-slate-900 bg-slate-50 text-slate-900 shadow-sm'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-600 bg-white'
                                             }`}
                                     >
                                         {duration} minutes
@@ -169,9 +169,9 @@ export default function CreateLessonPage() {
                             <textarea
                                 value={formData.topicPrompt}
                                 onChange={(e) => setFormData({ ...formData, topicPrompt: e.target.value })}
-                                placeholder="Example: Evolution — natural selection using birds&#10;&#10;Describe your biology topic. Be specific about concepts, examples, or approaches you want to include."
+                                placeholder="Example: Photosynthesis — chemical reactions in plants&#10;&#10;Describe your STEM topic. Be specific about concepts, examples, or approaches you want to include."
                                 rows={5}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors resize-none"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900 transition-colors resize-none"
                             />
                             <p className="mt-1 text-sm text-gray-500">
                                 The more specific you are, the better the lesson plan
@@ -189,9 +189,9 @@ export default function CreateLessonPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-all ${loading
-                                ? 'bg-gray-400 cursor-not-allowed'
-                                : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+                            className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all ${loading
+                                ? 'bg-slate-300 cursor-not-allowed text-slate-500'
+                                : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl transform active:scale-95'
                                 }`}
                         >
                             {loading ? (
@@ -215,10 +215,10 @@ export default function CreateLessonPage() {
                                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                         />
                                     </svg>
-                                    Generating lesson plan...
+                                    Synthesizing Lesson Plan...
                                 </span>
                             ) : (
-                                <>🧪 Generate Lesson Plan</>
+                                <span>📝 Generate Lesson Plan</span>
                             )}
                         </button>
                     </form>

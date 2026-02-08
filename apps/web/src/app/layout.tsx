@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BioLesson - Lesson Plan Generator",
-  description: "Generate structured biology lesson plans for teachers in low-resource regions",
+  title: "SynapseStream - AI Lesson Generator",
+  description: "Empowering educators worldwide with AI-generated STEM and Biology lessons",
 };
 
 export default function RootLayout({

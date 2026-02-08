@@ -99,12 +99,15 @@ export default function CreateVideoPage() {
     return (
         <div className="min-h-[calc(100vh-72px)] py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden text-gray-900">
+                <div className="school-card overflow-hidden text-gray-900">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-8">
-                        <h1 className="text-3xl font-bold mb-2">🎬 Create Video Lesson</h1>
-                        <p className="text-purple-100">
-                            Generate an AI-powered video lesson with narration and slides
+                    <div className="bg-slate-900 text-white p-8 border-b border-slate-700">
+                        <div className="flex items-center gap-3 mb-2">
+                            <span className="text-3xl">🎬</span>
+                            <h1 className="text-3xl font-bold tracking-tight !text-white">Generate Video Lesson</h1>
+                        </div>
+                        <p className="text-slate-400">
+                            Syncing AI visuals and narration into a professional stream
                         </p>
                     </div>
 
@@ -147,7 +150,7 @@ export default function CreateVideoPage() {
 
                         {/* Grade Band */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-2 font-serif text-lg">
                                 📚 Grade Band
                             </label>
                             <div className="grid grid-cols-3 gap-3">
@@ -157,8 +160,8 @@ export default function CreateVideoPage() {
                                         type="button"
                                         onClick={() => setFormData({ ...formData, gradeBand: grade })}
                                         className={`py-3 px-4 rounded-lg border-2 font-medium transition-all ${formData.gradeBand === grade
-                                            ? 'border-purple-500 bg-purple-50 text-purple-700'
-                                            : 'border-gray-200 hover:border-gray-300 text-gray-600'
+                                            ? 'border-purple-600 bg-purple-50 text-purple-700 shadow-sm'
+                                            : 'border-gray-200 hover:border-gray-300 text-gray-600 bg-white'
                                             }`}
                                     >
                                         Grades {grade}
@@ -214,9 +217,9 @@ export default function CreateVideoPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-all ${loading
-                                ? 'bg-gray-400 cursor-not-allowed'
-                                : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+                            className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all ${loading
+                                ? 'bg-slate-300 cursor-not-allowed text-slate-500'
+                                : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl transform active:scale-95'
                                 }`}
                         >
                             {loading ? (
@@ -225,10 +228,12 @@ export default function CreateVideoPage() {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                                     </svg>
-                                    Generating video...
+                                    Streaming Assets...
                                 </span>
                             ) : (
-                                <>🎬 Generate Video Lesson</>
+                                <span className="flex items-center justify-center gap-2">
+                                    🎬 Create Synapse Stream
+                                </span>
                             )}
                         </button>
 
