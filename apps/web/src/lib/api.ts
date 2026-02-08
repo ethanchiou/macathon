@@ -104,3 +104,41 @@ export async function deleteLesson(lessonId: string): Promise<void> {
         method: 'DELETE',
     });
 }
+
+// ============== VIDEO API ==============
+
+import type {
+    VideoRequest,
+    VideoResponse,
+    VideoSummary as VideoSummaryType,
+} from '@/types';
+
+/**
+ * Generate a new video lesson
+ */
+export async function generateVideo(
+    request: VideoRequest
+): Promise<VideoResponse> {
+    const response = await fetchWithAuth('/api/generate-video', {
+        method: 'POST',
+        body: JSON.stringify(request),
+    });
+    return response.json();
+}
+
+/**
+ * List all videos for the current user
+ */
+export async function listVideos(): Promise<VideoSummaryType[]> {
+    const response = await fetchWithAuth('/api/videos');
+    return response.json();
+}
+
+/**
+ * Delete a video
+ */
+export async function deleteVideo(videoId: string): Promise<void> {
+    await fetchWithAuth(`/api/videos/${videoId}`, {
+        method: 'DELETE',
+    });
+}

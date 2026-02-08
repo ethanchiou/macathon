@@ -28,6 +28,12 @@ export function Header() {
                                     Create Lesson
                                 </Link>
                                 <Link
+                                    href="/create-video"
+                                    className="hover:text-emerald-200 transition-colors font-medium"
+                                >
+                                    Create Video
+                                </Link>
+                                <Link
                                     href="/library"
                                     className="hover:text-emerald-200 transition-colors font-medium"
                                 >
