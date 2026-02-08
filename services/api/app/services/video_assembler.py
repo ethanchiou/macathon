@@ -134,6 +134,7 @@ class VideoAssembler:
                         "-i", concat_file,
                         "-i", combined_audio,
                         "-c:v", "libx264",
+                        "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
                         "-pix_fmt", "yuv420p",
                         "-c:a", "aac",
                         "-shortest",
@@ -147,6 +148,7 @@ class VideoAssembler:
                         "-f", "concat", "-safe", "0",
                         "-i", concat_file,
                         "-c:v", "libx264",
+                        "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
                         "-pix_fmt", "yuv420p",
                         output_path
                     ]

@@ -56,17 +56,44 @@ async def generate_video(
     tts_generator = get_tts_generator()
     
     # Extract prompts and narrations
-    image_prompts = [slide.imagePrompt for slide in script.slides]
+    # image_prompts = [slide.imagePrompt for slide in script.slides]
     narration_texts = [slide.narration for slide in script.slides]
     
-    print(f"[VIDEO] Generating {len(image_prompts)} images and {len(narration_texts)} audio clips...")
+    print(f"[VIDEO] Loading 4 hardcoded images and generating {len(narration_texts)} audio clips...")
     
-    # Generate in parallel
+    # Generate in parallel (Audio only now)
     import asyncio
-    images_task = image_generator.generate_slide_images(image_prompts)
+    
+    # Hardcode images
+    assets_dir = "/Users/ethanchiou/Desktop/Programming/Projects/macathon2026/assets"
+    image_files = [
+        "macathonslide1.jpg",
+        "macathonslide2.png",
+        "macathonslide3.jpg",
+        "macathonslide4.jpg"
+    ]
+    
+    loaded_images = []
+    for img_file in image_files:
+        img_path = os.path.join(assets_dir, img_file)
+        if os.path.exists(img_path):
+            with open(img_path, "rb") as f:
+                loaded_images.append(f.read())
+        else:
+            print(f"[ERROR] Image not found: {img_path}")
+            # Fallback or error handling? For now, append None or a placeholder if needed
+            loaded_images.append(None)
+
+    # Cycle through the loaded images for the number of slides
+    from itertools import cycle
+    image_cycle = cycle(loaded_images)
+    images = [next(image_cycle) for _ in range(len(script.slides))]
+
+    # images_task = image_generator.generate_slide_images(image_prompts)
     audio_task = tts_generator.generate_slide_narrations(narration_texts)
     
-    images, audio_results = await asyncio.gather(images_task, audio_task)
+    # images, audio_results = await asyncio.gather(images_task, audio_task)
+    audio_results = await audio_task
     
     # Log results
     images_success = sum(1 for img in images if img is not None)
@@ -93,6 +120,10 @@ async def generate_video(
     video_path = await assembler.assemble_video(slides, f"{video_id}.mp4")
     
     print(f"[VIDEO] Assembly result: {video_path}")
+    
+    if not video_path:
+        print("[ERROR] Video assembly failed returned None")
+        raise HTTPException(status_code=500, detail="Video assembly failed. Check server logs.")
     
     # TODO: Upload to Firebase Storage and get public URL
     # For now, return local path
@@ -140,7 +171,15 @@ async def stream_video(video_id: str):
     video_path = os.path.join(output_dir, f"{video_id}.mp4")
     
     if not os.path.exists(video_path):
-        raise HTTPException(status_code=404, detail="Video not found")
+        print(f"[ERROR] Stream video not found at: {video_path}")
+        # Try finding it in cwd/output as fallback
+        cwd_output = os.path.join(os.getcwd(), "output", f"{video_id}.mp4")
+        if os.path.exists(cwd_output):
+             print(f"[INFO] Found video at fallback path: {cwd_output}")
+             video_path = cwd_output
+        else:
+             print(f"[ERROR] Stream video also not found at fallback: {cwd_output}")
+             raise HTTPException(status_code=404, detail="Video not found")
     
     return FileResponse(
         video_path,
